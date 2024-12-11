@@ -1,0 +1,77 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>О нас - Детский мир</title>
+    <link rel="stylesheet" href="{% static 'main/css/main.css' %}">
+    <script src="{% static 'main/js/main.js' %}"></script>
+</head>
+<body>
+    <header>
+    <div class="container">
+        <h1>Детский мир</h1>
+        <div class="user-info">
+            {% if request.user.is_authenticated %}
+                <p class="welcome-message">Добро пожаловать, {{ request.user.username }}!</p>
+                <form action="{% url 'logout' %}" method="post">
+                    {% csrf_token %}
+                    <button type="submit" class="btn-login">Выйти</button>
+                </form>
+            {% else %}
+                <p class="welcome-message">Добро пожаловать, гость!</p>
+                <a href="{% url 'login' %}" class="btn-login">Войти</a>
+                <a href="{% url 'registr' %}" class="btn-login">Регистрация</a>
+            {% endif %}
+        </div>
+        <nav>
+            <ul>
+                <li><a href="{% url 'home' %}">Главная</a></li>
+                <li><a href="{% url 'products' %}">Товары</a></li>
+                <li><a href="{% url 'about' %}">О нас</a></li>
+                <li><a href="{% url 'kontakt' %}">Контакты</a></li>
+                <li><a href="{% url 'cart' %}">Корзина</a></li>
+                <li><a href="{% url 'purchase_history' %}">Мои покупки</a></li>
+            </ul>
+        </nav>
+    </div>
+</header>
+
+    <section class="about">
+        <div class="container">
+            <h2>О нас</h2>
+            <p>Мы - интернет-магазин «Детский мир», созданный для того, чтобы предлагать широкий ассортимент товаров для детей. Мы стремимся помочь родителям найти всё необходимое для комфортного и радостного детства их малышей.</p>
+            <p>В нашем ассортименте вы найдете игрушки, одежду, аксессуары и детское питание. Мы заботимся о качестве и безопасности каждого товара и гарантируем удобство покупок на нашем сайте.</p>
+        </div>
+    </section>
+
+<!--    <footer>-->
+<!--        <div class="container">-->
+<!--            <p>© 2024 Детский мир. Все права защищены.</p>-->
+<!--        </div>-->
+<!--    </footer>-->
+    <div class="chat-popup" id="chatWindow">
+        <div class="chat-header">
+            <div class="chat-header-text">
+                <h4>Консультант</h4>
+            </div>
+            <button class="close-btn" onclick="closeChat()">X</button>
+        </div>
+        <div class="chat-body">
+            <div id="chatMessages" class="chat-messages">
+                <div class="bot-message">
+                    <p>Здравствуйте! Чем могу помочь?</p>
+                </div>
+            </div>
+            <div class="input-area">
+                <input type="text" id="userInput" placeholder="Введите сообщение..." onkeypress="handleKeyPress(event)">
+                <button onclick="sendMessage()">Отправить</button>
+            </div>
+        </div>
+    </div>
+
+    <button class="chat-btn" onclick="openChat()">Чат</button>
+
+</body>
+</html>

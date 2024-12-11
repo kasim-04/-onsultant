@@ -1,0 +1,80 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Ваша корзина</title>
+    <link rel="stylesheet" href="{% static 'main/css/cart.css' %}">
+<!--    <script src="{% static 'main/js/shopping_cart.js' %}"></script>-->
+</head>
+<body>
+  <header>
+    <div class="container">
+        <h1>Детский мир</h1>
+        <div class="user-info">
+            {% if request.user.is_authenticated %}
+                <p class="welcome-message">Добро пожаловать, {{ request.user.username }}!</p>
+                <form action="{% url 'logout' %}" method="post">
+                    {% csrf_token %}
+                    <button type="submit" class="btn-login">Выйти</button>
+                </form>
+            {% else %}
+                <p class="welcome-message">Добро пожаловать, гость!</p>
+                <a href="{% url 'login' %}" class="btn-login">Войти</a>
+                <a href="{% url 'registr' %}" class="btn-login">Регистрация</a>
+            {% endif %}
+        </div>
+        <nav>
+            <ul>
+                <li><a href="{% url 'home' %}">Главная</a></li>
+                <li><a href="{% url 'products' %}">Товары</a></li>
+<!--                <li><a href="{% url 'about' %}">О нас</a></li>-->
+<!--                <li><a href="{% url 'kontakt' %}">Контакты</a></li>-->
+                <li><a href="{% url 'cart' %}">Корзина</a></li>
+                <li><a href="{% url 'purchase_history' %}">Мои покупки</a></li>
+            </ul>
+        </nav>
+    </div>
+</header>
+<body>
+
+    <div class="cart-container">
+    <!-- Заголовок корзины -->
+    <div class="cart-header">
+        <h2>Корзина:</h2>
+    </div>
+
+    <!-- Список товаров в корзине -->
+    {% for item in cart_items %}
+    <div class="cart-item">
+        <img src="{{ item.toy.image }}" alt="{{ item.toy.name }}" onerror="src='https://avatar.iran.liara.run/public'">
+        <div class="cart-item-details">
+            <h4>{{ item.toy.name }}</h4>
+            <p>Цена: {{ item.toy.cost }} руб.</p>
+        </div>
+        <div class="cart-item-quantity">
+            Количество: {{ item.quantity }}
+        </div>
+        <div class="cart-item-actions">
+            <form action="{% url 'remove_from_cart' item.toy.id %}" method="post">
+                {% csrf_token %}
+                <button type="submit" class="remove-btn">Удалить</button>
+            </form>
+        </div>
+    </div>
+    {% endfor %}
+
+    <!-- Итоговая сумма -->
+    <div class="cart-total">
+        Общая сумма: {{ cart_total }} руб.
+    </div>
+
+    <!-- Кнопка для оформления заказа -->
+    <form action="{% url 'checkout' %}" method="post">
+    {% csrf_token %}
+         <button type="submit" class="checkout-btn">Оплата</button>
+    </form>
+
+</div>
+</body>
+</html>

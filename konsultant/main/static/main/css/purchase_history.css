@@ -1,0 +1,211 @@
+/* Основные стили */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    color: #333;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* Шапка */
+header {
+    background-color: #007bff;
+    color: white;
+    padding: 20px 0;
+}
+
+header h1 {
+    display: inline;
+}
+
+nav ul {
+    list-style: none;
+    float: right;
+}
+
+nav ul li {
+    display: inline;
+    margin-left: 20px;
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+}
+
+/* Стили для страницы истории покупок */
+.purchase-history {
+    padding: 50px 0;
+    background-color: #fff;
+}
+
+.purchase-history h2 {
+    text-align: center;
+    font-size: 36px;
+    margin-bottom: 30px;
+    color: #333;
+}
+
+.purchase-history ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0;
+}
+
+.purchase-history li {
+    background-color: #fff;
+    width: 80%;
+    margin: 15px 0;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    border: 2px solid #f0f0f0; /* Рамка вокруг каждой покупки */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.3s ease;
+}
+
+.purchase-history li:hover {
+    transform: scale(1.05);
+}
+
+.purchase-history .purchase-header {
+    text-align: center;
+    width: 100%;
+    margin-bottom: 15px;
+}
+
+.purchase-history img {
+    max-width: 150px;
+    height: auto;
+    border-radius: 10px;
+    margin-bottom: 15px;
+}
+
+.purchase-history .purchase-details {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.purchase-history .purchase-details strong {
+    font-size: 18px;
+    color: #333;
+}
+
+.purchase-history .purchase-details p {
+    font-size: 14px;
+    color: #666;
+    margin-top: 5px;
+}
+
+.purchase-history .purchase-date {
+    font-size: 14px;
+    color: #999;
+    text-align: center;
+}
+
+.purchase-history .purchase-quantity {
+    font-size: 16px;
+    color: #333;
+    font-weight: bold;
+}
+
+/* Кнопка возврата или дополнительных действий */
+.purchase-history .btn-return {
+    background-color: #ff9900;
+    color: white;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: bold;
+    margin-top: 20px;
+    display: inline-block;
+    text-align: center;
+    transition: background-color 0.3s ease;
+}
+
+.purchase-history .btn-return:hover {
+    background-color: #ff7700;
+}
+
+/* Footer */
+footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 20px 0;
+    margin-top: 50px;
+}
+
+.user-info {
+    float: right;
+    display: flex;
+    align-items: center;
+}
+
+.welcome-message {
+    font-size: 16px;
+    color: #fff;
+    margin-right: 15px;
+}
+
+.btn-login {
+    background-color: #ff9900;
+    color: #fff;
+    padding: 8px 15px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+    margin-right: 10px;
+}
+
+.btn-login:hover {
+    background-color: #ff7700;
+}
+
+
+
+
+
+
+.order {
+    margin-bottom: 30px;
+    padding: 15px;
+    border: 1px solid #ddd;
+    background-color: #f9f9f9;
+}
+.order h2 {
+    margin-top: 0;
+}
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+table th, table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+table th {
+    background-color: #f2f2f2;
+}

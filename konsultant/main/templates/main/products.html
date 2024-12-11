@@ -1,0 +1,87 @@
+{%load static%}
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Каталог товаров</title>
+    <link rel="stylesheet" href="{% static 'main/css/products.css' %}">
+    <link rel="stylesheet" href="{% static 'main/css/main.css' %}">
+    <script src="{% static 'main/js/main.js' %}"></script>
+</head>
+<body>
+ <header>
+    <div class="container">
+        <h1>Детский мир</h1>
+        <div class="user-info">
+            {% if request.user.is_authenticated %}
+                <p class="welcome-message">Добро пожаловать, {{ request.user.username }}!</p>
+                <form action="{% url 'logout' %}" method="post">
+                    {% csrf_token %}
+                    <button type="submit" class="btn-login">Выйти</button>
+                </form>
+            {% else %}
+                <p class="welcome-message">Добро пожаловать, гость!</p>
+                <a href="{% url 'login' %}" class="btn-login">Войти</a>
+                <a href="{% url 'registr' %}" class="btn-login">Регистрация</a>
+            {% endif %}
+        </div>
+        <nav>
+            <ul>
+                <li><a href="{% url 'home' %}">Главная</a></li>
+                <li><a href="{% url 'products' %}">Товары</a></li>
+<!--                <li><a href="{% url 'about' %}">О нас</a></li>-->
+<!--                <li><a href="{% url 'kontakt' %}">Контакты</a></li>-->
+                <li><a href="{% url 'cart' %}">Корзина</a></li>
+                <li><a href="{% url 'purchase_history' %}">Мои покупки</a></li>
+            </ul>
+        </nav>
+    </div>
+</header>
+    <main>
+        <div class="container">
+            <h2>Каталог игрушек</h2>
+            <div class="product-grid">
+                {% for toy in all_toy %}
+                    <div class="product-card">
+                        {% if toy.image %}
+                    <img src="{% static toy.image %}" alt="{{ toy.name }}" style="width: 200px; height: auto;">
+                {% else %}
+                    <p>Изображение не доступно</p>
+                {% endif %}
+                        <h3 class="product-name">{{ toy.name }}</h3>
+                        <p class="product-description">{{ toy.description }}</p>
+                        <p class="product-price">{{ toy.cost }} ₽</p>
+                        <a href="{% url 'add_to_cart' toy.id %}" class="btn">Добавить в корзину</a>
+                    </div>
+                {% empty %}
+                    <p>Игрушки не найдены</p>
+                {% endfor %}
+            </div>
+        </div>
+    </main>
+    <div class="chat-popup" id="chatWindow">
+        <div class="chat-header">
+            <div class="chat-header-text">
+                <h4>Консультант</h4>
+            </div>
+            <button class="close-btn" onclick="closeChat()">X</button>
+        </div>
+        <div class="chat-body">
+            <div id="chatMessages" class="chat-messages">
+                <div class="bot-message">
+                    <p>Здравствуйте! Чем могу помочь?</p>
+                </div>
+            </div>
+            <div class="input-area">
+                <input type="text" id="userInput" placeholder="Введите сообщение..." onkeypress="handleKeyPress(event)">
+                <button onclick="sendMessage()">Отправить</button>
+            </div>
+        </div>
+    </div>
+
+    <button class="chat-btn" onclick="openChat()">Чат</button>
+
+</body>
+</html>
